@@ -4,20 +4,22 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Json;
 
 class HelloController extends AbstractController
 {
     /**
-     * @Route("/hello/{name}/{pass}", name="hello")
+     * @Route("/hello", name="hello")
      */
-    public function index($name, $pass)
+    public function index(Request $request)
     {
-      $result = '<html><body><ol>';
-      $result .= '<h1>Parameter</h1>';
-      $result .= '<p>name:' . $name . '</p>';
-      $result .= '<p>pass:' . $pass . '</p>';
-      $result .= '</body></html>';
-      return new Response($result);
+      $data = array(
+        'name' => array('first' => 'Taro', 'second' => 'Yamada'),
+        'age' => 22, 'mail' => 'taro@yamada.kun',
+      );
+      return new JsonResponse($data);
     }
 }
